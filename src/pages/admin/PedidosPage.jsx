@@ -1,5 +1,6 @@
 // ============================================================
 // Pedidos. Pág Ref a Pedidos - Rinaldo Pereira
+// (corrigido: order.id/p.id são Int no Prisma — .slice()/.includes() quebravam)
 // ============================================================
 
 
@@ -30,7 +31,7 @@ function OrderDetail({ order, onClose, onStatusChange }) {
     <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal" style={{ maxWidth: 480 }}>
         <div className="modal-header">
-          <span className="modal-title">Pedido #{order.id?.slice(0, 8)}</span>
+          <span className="modal-title">Pedido #{order.id}</span>
           <button className="btn btn-ghost btn-icon" onClick={onClose}><X size={16} /></button>
         </div>
         <div className="modal-body">
@@ -113,8 +114,11 @@ function NewOrderModal({ open, onClose, onSaved, users, products }) {
   const removeItem = (idx) => setItems(i => i.filter((_, j) => j !== idx))
   const updateItem = (idx, field, val) => setItems(i => i.map((item, j) => j === idx ? { ...item, [field]: val } : item))
 
+  // products vindos da API têm id numérico (Prisma Int); item.productId vem do
+  // <select> como string. Comparar com == (ou normalizar com Number) evita que
+  // o total estimado sempre dê zero por não encontrar o produto.
   const total = items.reduce((sum, item) => {
-    const p = products.find(p => p.id === item.productId)
+    const p = products.find(p => String(p.id) === String(item.productId))
     return sum + (p ? parseFloat(p.price) * item.quantity : 0)
   }, 0)
 
@@ -124,7 +128,11 @@ function NewOrderModal({ open, onClose, onSaved, users, products }) {
     if (items.some(i => !i.productId)) { toast.error('Selecione o produto em todos os itens'); return }
     setLoading(true)
     try {
-      await ordersApi.create({ ...form, items: items.map(i => ({ productId: i.productId, quantity: parseInt(i.quantity) })) })
+      await ordersApi.create({
+        ...form,
+        userId: Number(form.userId),
+        items: items.map(i => ({ productId: Number(i.productId), quantity: parseInt(i.quantity) })),
+      })
       toast.success('Pedido criado!')
       onSaved(); onClose()
     } catch (err) { toast.error(err.response?.data?.message || 'Erro ao criar pedido') }
@@ -238,7 +246,11 @@ export default function PedidosPage() {
   }
 
   const filtered = pedidos.filter(p => {
-    const matchSearch = p.id?.includes(search) || p.user?.name?.toLowerCase().includes(search.toLowerCase())
+    // p.id é número (Int do Prisma) — String(p.id) garante que .includes() não quebre
+    // ao buscar por ID, nome do cliente, ou ambos.
+    const matchSearch = !search ||
+      String(p.id).includes(search) ||
+      p.user?.name?.toLowerCase().includes(search.toLowerCase())
     const matchStatus = !filterStatus || p.status === filterStatus
     return matchSearch && matchStatus
   })
@@ -293,7 +305,7 @@ export default function PedidosPage() {
                 const total = p.total ?? 0
                 return (
                   <tr key={p.id} style={{ cursor: 'pointer' }} onClick={() => setDetail(p)}>
-                    <td><span className="tag">{p.id?.slice(0,8)}</span></td>
+                    <td><span className="tag">#{p.id}</span></td>
                     <td><strong>{p.user?.name || '—'}</strong></td>
                     <td style={{ maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12, color: 'var(--cream-faint)' }}>{p.address || '—'}</td>
                     <td><span className={`badge ${cfg.badge}`}>{cfg.label}</span></td>

@@ -133,10 +133,10 @@ export default function ProdutosPage() {
   }
 
   const filtered = produtos.filter(p => {
-    const matchSearch = p.name?.toLowerCase().includes(search.toLowerCase())
-    const matchCat = !filterCat || p.categoryId === filterCat || p.category?.id === filterCat
-    return matchSearch && matchCat
-  })
+  const matchSearch = p.name?.toLowerCase().includes(search.toLowerCase())
+  const matchCat = !filterCat || p.categoryId === filterCat || p.category?.id === filterCat
+  return matchSearch && matchCat
+})
 
   return (
     <div>

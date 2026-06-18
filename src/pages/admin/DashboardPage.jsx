@@ -1,5 +1,6 @@
 // ============================================================
 // Dashboard. Pág Ref a Dashboar - Rinaldo Pereira
+// (corrigido: order.id é Int no Prisma, não string — .slice() quebrava)
 // ============================================================
 
 
@@ -155,7 +156,7 @@ export default function DashboardPage() {
                   const cfg = STATUS_CONFIG[order.status] || STATUS_CONFIG.PENDING
                   return (
                     <tr key={order.id}>
-                      <td><span className="tag">{order.id?.slice(0, 8)}</span></td>
+                      <td><span className="tag">#{order.id}</span></td>
                       <td><strong>{order.user?.name || '—'}</strong></td>
                       <td><span className={`badge ${cfg.badge}`}>{cfg.label}</span></td>
                       <td><span className="price">R$ {(order.total || 0).toFixed(2)}</span></td>
