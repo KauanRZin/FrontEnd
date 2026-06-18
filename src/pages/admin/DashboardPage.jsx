@@ -1,3 +1,8 @@
+// ============================================================
+// Dashboard. Pág Ref a Dashboar - Rinaldo Pereira
+// ============================================================
+
+
 import React, { useEffect, useState } from 'react'
 import { ShoppingBag, Users, Package, TrendingUp, Clock, CheckCircle, XCircle, Truck } from 'lucide-react'
 import { ordersApi, usersApi, productsApi } from '../../api'

@@ -7,14 +7,14 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
-// ── Request interceptor: attach JWT ──────────────────────────
+// ── Interceptador de requisição: anexar JWT - ──────────────────────────
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('pizza_token')
   if (token) config.headers.Authorization = `Bearer ${token}`
   return config
 })
 
-// ── Response interceptor: auto-logout on 401 ─────────────────
+// ── Interceptador de resposta: logout automático em caso de erro 401 - ─────────────────
 api.interceptors.response.use(
   (res) => res,
   (err) => {
@@ -36,7 +36,7 @@ export const authApi = {
 }
 
 // ============================================================
-// USERS
+// Usuárfios - 
 // ============================================================
 export const usersApi = {
   list: () => api.get('/users'),
@@ -49,7 +49,7 @@ export const usersApi = {
 }
 
 // ============================================================
-// PRODUCTS
+// Produtos
 // ============================================================
 export const productsApi = {
   list: () => api.get('/products'),
@@ -62,7 +62,7 @@ export const productsApi = {
 }
 
 // ============================================================
-// CATEGORIES
+// Categorias
 // ============================================================
 export const categoriesApi = {
   list: () => api.get('/categories'),
@@ -73,7 +73,7 @@ export const categoriesApi = {
 }
 
 // ============================================================
-// ORDERS
+// Ordens
 // ============================================================
 export const ordersApi = {
   list: () => api.get('/orders'),

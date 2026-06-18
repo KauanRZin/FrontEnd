@@ -1,3 +1,8 @@
+// ============================================================
+// Produtos. Pág Ref. a Produtos - Rinaldo Pereira
+// ============================================================
+
+
 import React, { useEffect, useState, useCallback } from 'react'
 import { Plus, Search, Edit2, Trash2, X, Package } from 'lucide-react'
 import { productsApi, categoriesApi } from '../../api'

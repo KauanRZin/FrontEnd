@@ -1,3 +1,8 @@
+// ============================================================
+// Usuários. Pág Ref a Usuários - Rinaldo Pereira 
+// ============================================================
+
+
 import React, { useEffect, useState, useCallback } from 'react'
 import { Plus, Search, Edit2, Trash2, X, UserCog } from 'lucide-react'
 import { usersApi } from '../../api'

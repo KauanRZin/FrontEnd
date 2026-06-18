@@ -2,6 +2,13 @@
 
 Sistema completo de gestão de pedidos para pizzaria. CRUD completo de Clientes, Produtos, Pedidos, Categorias e Usuários, com autenticação JWT.
 
+## Grupo
+
+Kauan Rocha
+Rinaldo Pereira
+Pedro Vinicius
+Pedro Marinho
+
 ## Stack
 
 - **React 18** + Vite

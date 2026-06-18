@@ -1,3 +1,8 @@
+// ============================================================
+// Categorias. Pág Ref a Categorias - Rinaldo Pereira
+// ============================================================
+
+
 import React, { useEffect, useState, useCallback } from 'react'
 import { Plus, Edit2, Trash2, X, Tag } from 'lucide-react'
 import { categoriesApi } from '../../api'

@@ -1,3 +1,8 @@
+// ============================================================
+// Clientes. Pág Ref a Clientes -  Rinaldo Peireira
+// ============================================================
+
+
 import React, { useEffect, useState, useCallback } from 'react'
 import { Plus, Search, Edit2, Trash2, UserX, UserCheck, X } from 'lucide-react'
 import { usersApi } from '../../api'

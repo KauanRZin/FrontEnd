@@ -1,3 +1,8 @@
+// ============================================================
+// Pedidos. Pág Ref a Pedidos - Rinaldo Pereira
+// ============================================================
+
+
 import React, { useEffect, useState, useCallback } from 'react'
 import { Plus, Search, Edit2, Trash2, X, ShoppingBag, Minus, ChevronRight } from 'lucide-react'
 import { ordersApi, usersApi, productsApi } from '../../api'
